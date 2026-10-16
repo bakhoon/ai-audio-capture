@@ -1,6 +1,6 @@
 {
-  "name": "목장 자막",
-  "short_name": "목장 자막",
+  "name": "한eng AI record",
+  "short_name": "한eng AI",
   "start_url": "/ai-audio-capture/",
   "scope": "/ai-audio-capture/",
   "display": "standalone",
