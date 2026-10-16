@@ -1,5 +1,7 @@
 name: Deploy to GitHub Pages
 
+# Settings > Pages 의 Source 가 "GitHub Actions" 든 "Deploy from a branch (gh-pages)" 든 둘 다 동작하게 함
+
 on:
   push:
     branches: [main]
@@ -7,9 +9,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,8 +27,23 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - run: cp dist/index.html dist/404.html
       - name: Publish dist to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
