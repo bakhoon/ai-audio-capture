@@ -58,6 +58,9 @@ button:disabled { cursor: default; }
   position: relative;
 }
 .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.captions .panel-head { justify-content: flex-start; gap: 10px; }
+.panel .status { background: var(--off); padding: 3px 9px; font-size: 11px; }
+.panel .status.on { background: #fde8e8; }
 .panel-head h2 { margin: 0; font-size: 14px; font-weight: 700; }
 .meta { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
 
@@ -76,10 +79,10 @@ button:disabled { cursor: default; }
 }
 .line .time::after { content: ""; flex: 1; height: 1px; background: #e2e4e9; }
 .line:first-child .time { margin-top: 0; }
-.line .text { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; }
+.line .text { margin: 0; font-size: 13px; line-height: 1.5; font-weight: 500; }
 .line.partial .text { color: var(--muted); }
 .line .ko {
-  margin: 0; font-size: 14px; line-height: 1.5;
+  margin: 0; font-size: 12px; line-height: 1.5;
   color: var(--blue); background: var(--blue-soft);
   border-radius: 8px; padding: 4px 8px;
 }
@@ -136,3 +139,8 @@ button:disabled { cursor: default; }
 }
 .field input:focus { outline: 2px solid var(--blue); outline-offset: 1px; border-color: var(--blue); }
 .btn.danger { height: 48px; background: #fff; border: 1.5px solid #e3b4b4; color: #9b1c1c; font-size: 15px; font-weight: 600; }
+
+.save-actions { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.save-actions .icon-btn { border: 1.5px solid var(--line); border-radius: 12px; }
+.save-actions .icon-btn:disabled { opacity: 0.5; }
+.app { padding-top: max(12px, env(safe-area-inset-top)); }
