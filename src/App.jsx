@@ -331,9 +331,12 @@ export default function App() {
 
         <div className="list" ref={listRef} onScroll={onScroll} aria-live="polite">
           {lines.length === 0 && <p className="empty">시작을 누르면 여기에 자막이 나와요.</p>}
-          {lines.map((l) => (
+          {lines.map((l, i) => (
             <div key={l.id} className={`line ${l.partial ? "partial" : ""}`}>
-              <span className="time">{clock(l.at)}</span>
+              {/* 새로운 "분"이 시작될 때만 시간 표시 */}
+              {(i === 0 || clock(l.at) !== clock(lines[i - 1].at)) && (
+                <span className="time">{clock(l.at)}</span>
+              )}
               <p className="text">{l.text}</p>
               {l.needsKo && l.ko && <p className="ko">{l.ko}</p>}
             </div>
